@@ -47,7 +47,7 @@ Suggests:
   dartR.spatial
 Remotes: github::green-striped-gecko/dartR.base,
          github::green-striped-gecko/dartR.spatial, 
-         github::green-striped-gecko/dartR.popgenomics
+         github::green-striped-gecko/dartR.sim
 License: GPL (>= 3)
 RoxygenNote: 7.2.3
 NeedsCompilation: no
