@@ -29,7 +29,6 @@ Suggests:
   iterpc,
   label.switching,
   leaflet,
-  maptools,
   plyr,
   proxy,
   purrr,
@@ -42,6 +41,7 @@ Suggests:
   tidyr,
   viridis,
   zoo,
+  sp,
   testthat (>= 3.0.0),
   dartR.sim,
   dartR.spatial
