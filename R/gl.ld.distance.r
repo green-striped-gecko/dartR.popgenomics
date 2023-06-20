@@ -53,7 +53,7 @@ gl.ld.distance <- function(ld_report,
                            ld_resolution = 100000,
                            pop_colors = NULL,
                            plot_theme = NULL,
-                           plot.out = TRUE,
+plot.out = TRUE,
                            save2tmp = FALSE,
                            verbose = NULL){
   
@@ -102,15 +102,8 @@ gl.ld.distance <- function(ld_report,
     }
     
     if(is.null(pop_colors)){
-      pop_colors <- discrete_palette(length(levels(pops)))
-    }
-    
-    if (is(pop_colors, "function")) {
-      pop_colors <- pop_colors(length(levels(pops)))
-    }
-    
-    if (!is(pop_colors,"function")) {
-      pop_colors <- pop_colors
+      pop_colors <- gl.select.colors(library="baseR", palette ="terrain.colors", 
+	ncolors = nlevels(pops), verbose = 0)
     }
     
   distance <- ld_stat <- NULL

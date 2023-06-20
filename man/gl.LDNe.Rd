@@ -15,7 +15,7 @@ gl.LDNe(
   mating = "random",
   plot.out = TRUE,
   plot_theme = theme_dartR(),
-  plot_colors_pop = discrete_palette,
+  plot_colors_pop = gl.select.colors(x, verbose = 0),
   save2tmp = FALSE,
   verbose = NULL
 )
@@ -51,8 +51,7 @@ c(0,0.05) [default 0].}
 
 \item{plot_theme}{User specified theme [default theme_dartR()].}
 
-\item{plot_colors_pop}{A discrete palette for population colors or a list
-with as many colors as there are populations in the dataset
+\item{plot_colors_pop}{population colors with as many colors as there are populations in the dataset
 [default discrete_palette].}
 
 \item{save2tmp}{If TRUE, saves any ggplots and listings to the session

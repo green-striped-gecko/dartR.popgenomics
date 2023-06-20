@@ -11,7 +11,7 @@ gl.plot.structure(
   iter_clumpp = 100,
   clumpak = TRUE,
   plot_theme = NULL,
-  colors_clusters = NULL,
+  color_clusters = NULL,
   ind_name = TRUE,
   border_ind = 0.15,
   plot.out = TRUE,
@@ -37,7 +37,7 @@ One of 'greedy' or 'greedyLargeK' or 'stephens' [default "greedyLargeK"].}
 \item{plot_theme}{Theme for the plot. See Details for options
 [default NULL].}
 
-\item{colors_clusters}{A color palette for clusters (K) or a list with
+\item{color_clusters}{A color palette for clusters (K) or a list with
 as many colors as there are clusters (K) [default NULL].}
 
 \item{ind_name}{Whether to plot individual names [default TRUE].}
