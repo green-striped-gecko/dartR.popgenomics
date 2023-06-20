@@ -14,7 +14,7 @@ gl.nhybrids(
   method = "random",
   plot = TRUE,
   plot_theme = theme_dartR(),
-  plot_colors = two_colors,
+  plot_colors = gl.select.colors(ncolors = 2, verbose = 0),
   pprob = 0.95,
   nhyb.directory = NULL,
   BurnIn = 10000,
@@ -51,7 +51,7 @@ individuals
 \item{plot_theme}{User specified theme [default theme_dartR()].}
 
 \item{plot_colors}{Vector with two color names for the borders and fill
-[default two_colors].}
+[default two colors].}
 
 \item{pprob}{Threshold level for assignment to likelihood bins
 [default 0.95, used only if plot=TRUE].}

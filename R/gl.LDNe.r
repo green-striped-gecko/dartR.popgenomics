@@ -30,8 +30,7 @@
 #' [default 'random'].
 #' @param plot.out Specify if plot is to be produced [default TRUE].
 #' @param plot_theme User specified theme [default theme_dartR()].
-#' @param plot_colors_pop A discrete palette for population colors or a list
-#' with as many colors as there are populations in the dataset
+#' @param plot_colors_pop  population colors with as many colors as there are populations in the dataset
 #' [default discrete_palette].
 #' @param save2tmp If TRUE, saves any ggplots and listings to the session
 #' temporary directory (tempdir) [default FALSE].
@@ -61,7 +60,7 @@ gl.LDNe <- function(x,
                     mating = 'random',
                     plot.out = TRUE,
                     plot_theme = theme_dartR(),
-                    plot_colors_pop = discrete_palette,
+                    plot_colors_pop = gl.select.colors(x, verbose=0),
                     save2tmp = FALSE,
                     verbose = NULL) {
   # SET VERBOSITY
@@ -250,13 +249,6 @@ gl.LDNe <- function(x,
   # PLOTS
   if (plot.out) {
     # printing plots and reports assigning colors to populations
-    if (is(plot_colors_pop, "function")) {
-      colors_pops <- plot_colors_pop(length(levels(pop(x))))
-    }
-    
-    if (!is(plot_colors_pop,"function")) {
-      colors_pops <- plot_colors_pop
-    }
     
     pop_list_plot <- lapply(pop_list, function(x) {
       stats::setNames(data.frame(t(x[, -1])), x[, 1])
@@ -271,7 +263,7 @@ gl.LDNe <- function(x,
     pop_list_plot <- as.data.frame(rbindlist(pop_list_plot))
     pop_list_plot$pop <- as.factor(pop_list_plot$pop)
     pop_list_plot[pop_list_plot == Inf] <- NA
-    pop_list_plot$color <- rep(colors_pops, each = sum(!duplicated(freq)))
+    pop_list_plot$color <- rep(plot_colors_pop, each = sum(!duplicated(freq)))
     pop_list_plot$`CI low Parametric` <-
       as.numeric(pop_list_plot$`CI low Parametric`)
     pop_list_plot$`CI high Parametric` <-
