@@ -42,10 +42,8 @@ Suggests:
   viridis,
   zoo,
   sp,
-  testthat (>= 3.0.0),
-  dartR.sim,
-  dartR.spatial
-Remotes: github::green-striped-gecko/dartR.base,
+  testthat (>= 3.0.0)
+Remotes: github::green-striped-gecko/dartR.base
 License: GPL (>= 3)
 RoxygenNote: 7.2.3
 NeedsCompilation: no
