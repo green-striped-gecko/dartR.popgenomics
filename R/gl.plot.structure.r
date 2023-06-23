@@ -18,7 +18,7 @@
 #' @param clumpak Whether use the Clumpak method (see details) [default TRUE].
 #' @param plot_theme Theme for the plot. See Details for options
 #' [default NULL].
-#' @param colors_clusters A color palette for clusters (K) or a list with
+#' @param color_clusters A color palette for clusters (K) or a list with
 #' as many colors as there are clusters (K) [default NULL].
 #' @param ind_name Whether to plot individual names [default TRUE].
 #' @param border_ind The width of the border line between individuals 
@@ -94,7 +94,7 @@ gl.plot.structure <- function(sr,
                                 iter_clumpp = 100,
                                 clumpak = TRUE,
                                 plot_theme = NULL,
-                                colors_clusters = NULL,
+                                color_clusters = NULL,
                                 ind_name = TRUE,
                                 border_ind = 0.15,
                                 plot.out = TRUE,
@@ -271,16 +271,8 @@ gl.plot.structure <- function(sr,
     plot_theme <- theme_dartR()
   }
   
-  if (is.null(colors_clusters)) {
-    colors_clusters <- structure_colors
-  }
-  
-  if (is(colors_clusters, "function")) {
-    cols_clusters <- colors_clusters(max(ks))
-  }
-  
-  if (!is(colors_clusters, "function")) {
-    cols_clusters <- colors_clusters
+   if (is.null(color_clusters)) {
+    color_clusters <- gl.select.colors(ncolors=max(ks), verbose=0)
   }
   
   # #Melt and append Q matrices
@@ -305,7 +297,7 @@ gl.plot.structure <- function(sr,
       labels = unique(Q_melt$Label),
       expand = c(0, 0)
     ) +
-    scale_fill_manual(values = cols_clusters) +
+    scale_fill_manual(values = color_clusters) +
     plot_theme +
     theme(
       panel.spacing = unit(0, "lines"),

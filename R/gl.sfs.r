@@ -50,12 +50,12 @@ gl.sfs <- function(x,
   
   # FLAG SCRIPT START
   funname <- match.call()[[1]]
-  utils.flag.start(func = funname,
+                   utils.flag.start(func = funname,
                    build = "Jody",
                    verbosity = verbose)
   
   # CHECK DATATYPE
-  datatype <- utils.check.datatype(x, verbose = verbose)
+  datatype <-utils.check.datatype(x, verbose = verbose)
   
   # FUNCTION SPECIFIC ERROR CHECKING
   
