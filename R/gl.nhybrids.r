@@ -228,8 +228,8 @@ gl.nhybrids <- function(gl,
                     "  Warning: Loci do not agree for the is.fixed comparison\n"
                 ))
             }
-            if (!is.na(is.fixed(gl2$frequency[i], gl2$frequency[i + 1], tloc = thold))) {
-                if (is.fixed(gl2$frequency[i], gl2$frequency[i + 1], tloc = thold)) {
+            if (!is.na(utils.is.fixed(gl2$frequency[i], gl2$frequency[i + 1], tloc = thold))) {
+                if (utils.is.fixed(gl2$frequency[i], gl2$frequency[i + 1], tloc = thold)) {
                     fixed.loci[i] <- as.character(gl2$locus[i])
                 }
             }
