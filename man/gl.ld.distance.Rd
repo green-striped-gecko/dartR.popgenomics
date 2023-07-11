@@ -11,7 +11,8 @@ gl.ld.distance(
   pop_colors = NULL,
   plot_theme = NULL,
   plot.out = TRUE,
-  save2tmp = FALSE,
+  plot.file = NULL,
+  plot.dir = NULL,
   verbose = NULL
 )
 }
@@ -30,8 +31,9 @@ base pairs [default NULL].}
 
 \item{plot.out}{Specify if plot is to be produced [default TRUE].}
 
-\item{save2tmp}{If TRUE, saves any ggplots and listings to the session
-temporary directory (tempdir) [default FALSE].}
+\item{plot.file}{Name for the RDS binary file to save (base name only, exclude extension) [default NULL]}
+
+\item{plot.dir}{Directory in which to save files [default = working directory]}
 
 \item{verbose}{Verbosity: 0, silent or fatal errors; 1, begin and end; 2,
 progress log; 3, progress and results summary; 5, full report

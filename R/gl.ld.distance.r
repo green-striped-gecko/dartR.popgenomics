@@ -16,8 +16,8 @@
 #' [default NULL].
 #' @param plot_theme User specified theme [default NULL].
 #' @param plot.out Specify if plot is to be produced [default TRUE].
-#' @param save2tmp If TRUE, saves any ggplots and listings to the session
-#' temporary directory (tempdir) [default FALSE].
+#' @param plot.dir Directory in which to save files [default = working directory]
+#' @param plot.file Name for the RDS binary file to save (base name only, exclude extension) [default NULL]
 #' @param verbose Verbosity: 0, silent or fatal errors; 1, begin and end; 2,
 #' progress log; 3, progress and results summary; 5, full report
 #' [default 2, unless specified using gl.set.verbosity].
@@ -53,13 +53,17 @@ gl.ld.distance <- function(ld_report,
                            ld_resolution = 100000,
                            pop_colors = NULL,
                            plot_theme = NULL,
-plot.out = TRUE,
-                           save2tmp = FALSE,
+                           plot.out = TRUE,
+                           plot.file=NULL,
+                           plot.dir=NULL,
                            verbose = NULL){
   
   # SET VERBOSITY
   verbose <- gl.check.verbosity(verbose)
-  
+
+  # SET WORKING DIRECTORY
+  plot.dir <- gl.check.wd(plot.dir,verbose=0)
+    
   # FLAG SCRIPT START
   funname <- match.call()[[1]]
   utils.flag.start(func = funname,
@@ -128,33 +132,15 @@ plot.out = TRUE,
   }
   print(bins_ld,row.names = FALSE)
   
-  # SAVE INTERMEDIATES TO TEMPDIR creating temp file names
-  if (save2tmp) {
-    if (plot.out) {
-      temp_plot <- tempfile(pattern = "Plot_")
-      match_call <-
-        paste0(names(match.call()),
-               "_",
-               as.character(match.call()),
-               collapse = "_")
-      # saving to tempdir
-      saveRDS(list(match_call, p3), file = temp_plot)
-      if (verbose >= 2) {
-        cat(report("  Saving the ggplot to session tempfile\n"))
-      }
-    }
-    temp_table <- tempfile(pattern = "Table_")
-    saveRDS(list(match_call, bins_ld), file = temp_table)
-    if (verbose >= 2) {
-      cat(report("  Saving tabulation to session tempfile\n"))
-      cat(
-        report(
-          "  NOTE: Retrieve output files from tempdir using
-                    gl.list.reports() and gl.print.reports()\n"
-        )
-      )
-    }
+  # Optionally save the plot ---------------------
+  
+  if(!is.null(plot.file)){
+    tmp <- utils.plot.save(p3,
+                           dir=plot.dir,
+                           file=plot.file,
+                           verbose=verbose)
   }
+  
   
   # FLAG SCRIPT END
   

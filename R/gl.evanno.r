@@ -13,14 +13,13 @@
 #' @author Bernd Gruber (Post to \url{https://groups.google.com/d/forum/dartr})
 #' @examples
 #' \dontrun{
-#' #CLUMPP and STRUCTURE need to be installed to be able to run the example
 #' #bc <- bandicoot.gl[,1:100]
 #' #sr <- gl.run.structure(bc, k.range = 2:5, num.k.rep = 3, exec = './structure.exe')
 #' #ev <- gl.evanno(sr)
 #' #ev
-#' #qmat <- gl.plot.structure(sr, k=3, CLUMPP='d:/structure/')
+#' #qmat <- gl.plot.structure(sr, K=3)
 #' #head(qmat)
-#' #gl.map.structure(qmat, bc, scalex=1, scaley=0.5)
+#' #gl.map.structure(qmat, bc, K=3, scalex=1, scaley=0.5)
 #' }
 #' @import patchwork
 ### @importFrom strataG genind2gtypes structureRun

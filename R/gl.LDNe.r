@@ -32,7 +32,8 @@
 #' @param plot_theme User specified theme [default theme_dartR()].
 #' @param plot_colors_pop  population colors with as many colors as there are populations in the dataset
 #' [default discrete_palette].
-#' @param save2tmp If TRUE, saves any ggplots and listings to the session
+#' @param plot.dir Directory in which to save files [default = working directory]
+#' @param plot.file Name for the RDS binary file to save (base name only, exclude extension) [default NULL]
 #' temporary directory (tempdir) [default FALSE].
 #' @param verbose Verbosity: 0, silent or fatal errors; 1, begin and end; 2,
 #' progress log; 3, progress and results summary; 5, full report
@@ -61,10 +62,14 @@ gl.LDNe <- function(x,
                     plot.out = TRUE,
                     plot_theme = theme_dartR(),
                     plot_colors_pop = gl.select.colors(x, verbose=0),
-                    save2tmp = FALSE,
+                    plot.file=NULL,
+                    plot.dir=NULL,
                     verbose = NULL) {
   # SET VERBOSITY
   verbose <- gl.check.verbosity(verbose)
+
+  # SET WORKING DIRECTORY
+  plot.dir <- gl.check.wd(plot.dir,verbose=0)
   
   # FLAG SCRIPT START
   funname <- match.call()[[1]]
@@ -322,35 +327,24 @@ gl.LDNe <- function(x,
   }
   
   print(pop_list, row.names = FALSE)
+
+  # Optionally save the plot ---------------------
   
-  # SAVE INTERMEDIATES TO TEMPDIR
-  
-  # creating temp file names
-  if (save2tmp) {
-    if (plot.out) {
-      temp_plot <- tempfile(pattern = "Plot_")
-      match_call <-
-        paste0(names(match.call()),
-               "_",
-               as.character(match.call()),
-               collapse = "_")
-      # saving to tempdir
-      saveRDS(list(match_call, p3), file = temp_plot)
-      if (verbose >= 2) {
-        cat(report("  Saving the ggplot to session tempfile\n"))
-      }
-    }
-    temp_table <- tempfile(pattern = "Table_")
-    saveRDS(list(match_call, pop_list), file = temp_table)
-    if (verbose >= 2) {
-      cat(report("  Saving tabulation to session tempfile\n"))
-      cat(
-        report(
-          "  NOTE: Retrieve output files from tempdir using gl.list.reports() and gl.print.reports()\n"
-        )
-      )
-    }
+  if(!is.null(plot.file)){
+    tmp <- utils.plot.save(p3,
+                           dir=plot.dir,
+                           file=plot.file,
+                           verbose=verbose)
   }
+  #save also table (automatically if plot is not null)
+  if(!is.null(plot.file)){
+    tmp <- utils.plot.save(pop_list,
+                           dir=plot.dir,
+                           file=paste0(plot.file,"_tab"),
+                           verbose=verbose)
+  }  
+  
+    
   
   if (verbose >= 1) {
     cat(report(

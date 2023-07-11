@@ -10,6 +10,8 @@ gl.sfs(
   folded = TRUE,
   singlepop = FALSE,
   plot.out = TRUE,
+  plot.file = NULL,
+  plot.dir = NULL,
   verbose = NULL
 )
 }
@@ -30,6 +32,10 @@ sfs) is returned. If set to FALSE then an unfolded (derived allele frequency
 though the genlight/dartR object contains more than one population}
 
 \item{plot.out}{Specify if plot is to be produced [default TRUE].}
+
+\item{plot.file}{Name for the RDS binary file to save (base name only, exclude extension) [default NULL]}
+
+\item{plot.dir}{Directory in which to save files [default = working directory]}
 
 \item{verbose}{Verbosity: 0, silent or fatal errors; 1, begin and end; 2,
 progress log ; 3, progress and results summary; 5, full report

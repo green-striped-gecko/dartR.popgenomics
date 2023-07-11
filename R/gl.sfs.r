@@ -12,6 +12,8 @@
 #' @param singlepop switch to force to create a one-dimensional sfs, even
 #' though the genlight/dartR object contains more than one population
 #' @param plot.out Specify if plot is to be produced [default TRUE].
+#' @param plot.dir Directory in which to save files [default = working directory]
+#' @param plot.file Name for the RDS binary file to save (base name only, exclude extension) [default NULL]
 #' @param verbose Verbosity: 0, silent or fatal errors; 1, begin and end; 2,
 #' progress log ; 3, progress and results summary; 5, full report
 #' [default 2, unless specified using gl.set.verbosity].
@@ -44,9 +46,14 @@ gl.sfs <- function(x,
                    folded = TRUE,
                    singlepop = FALSE,
                    plot.out = TRUE,
+                   plot.file=NULL,
+                   plot.dir=NULL,
                    verbose = NULL) {
   # SET VERBOSITY
   verbose <- gl.check.verbosity(verbose)
+  
+  # SET WORKING DIRECTORY
+  plot.dir <- gl.check.wd(plot.dir,verbose=0)
   
   # FLAG SCRIPT START
   funname <- match.call()[[1]]
@@ -174,6 +181,18 @@ gl.sfs <- function(x,
       ))
     }
   }
+  
+  # Optionally save the plot ---------------------
+  
+  if(!is.null(plot.file)){
+    tmp <- utils.plot.save(gp,
+                           dir=plot.dir,
+                           file=plot.file,
+                           verbose=verbose)
+  }
+  
+  
+  
   # FLAG SCRIPT END
   
   if (verbose >= 1) {

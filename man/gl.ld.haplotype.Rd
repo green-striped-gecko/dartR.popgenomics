@@ -19,7 +19,8 @@ gl.ld.haplotype(
   color_haplo = "viridis",
   color_het = "deeppink",
   plot.out = TRUE,
-  save2tmp = FALSE,
+  plot.file = NULL,
+  plot.dir = NULL,
   verbose = NULL
 )
 }
@@ -63,8 +64,10 @@ analysis e.g. c(1,1000000) [default NULL].}
 
 \item{plot.out}{Specify if heatmap plot is to be produced [default TRUE].}
 
-\item{save2tmp}{If TRUE, saves any ggplots and listings to the session
+\item{plot.file}{Name for the RDS binary file to save (base name only, exclude extension) [default NULL]
 temporary directory (tempdir) [default FALSE].}
+
+\item{plot.dir}{Directory in which to save files [default = working directory]}
 
 \item{verbose}{Verbosity: 0, silent or fatal errors; 1, begin and end; 2,
 progress log; 3, progress and results summary; 5, full report
@@ -103,7 +106,8 @@ The output of the function includes a table with the haplotypes
 require("dartR.data")
 x <- platypus.gl
 x <- gl.filter.callrate(x,threshold = 1)
-x <- gl.keep.pop(x, pop.list = "TENTERFIELD")
+#only the first 20 individuals because of speed during tests
+x <- gl.keep.pop(x, pop.list = "TENTERFIELD")[1:20,]
 x$chromosome <- as.factor(x$other$loc.metrics$Chrom_Platypus_Chrom_NCBIv1)
 x$position <- x$other$loc.metrics$ChromPos_Platypus_Chrom_NCBIv1
 ld_res <- gl.ld.haplotype(x,chrom_name = "NC_041728.1_chromosome_1",

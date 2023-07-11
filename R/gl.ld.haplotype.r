@@ -40,7 +40,8 @@
 #'  [default "viridis"].
 #' @param color_het Color for heterozygosity [default "deeppink"].
 #' @param plot.out Specify if heatmap plot is to be produced [default TRUE].
-#' @param save2tmp If TRUE, saves any ggplots and listings to the session
+#' @param plot.dir Directory in which to save files [default = working directory]
+#' @param plot.file Name for the RDS binary file to save (base name only, exclude extension) [default NULL]
 #' temporary directory (tempdir) [default FALSE].
 #' @param verbose Verbosity: 0, silent or fatal errors; 1, begin and end; 2,
 #' progress log; 3, progress and results summary; 5, full report
@@ -64,7 +65,8 @@
 #' require("dartR.data")
 #' x <- platypus.gl
 #' x <- gl.filter.callrate(x,threshold = 1)
-#' x <- gl.keep.pop(x, pop.list = "TENTERFIELD")
+#' #only the first 20 individuals because of speed during tests
+#' x <- gl.keep.pop(x, pop.list = "TENTERFIELD")[1:20,]
 #' x$chromosome <- as.factor(x$other$loc.metrics$Chrom_Platypus_Chrom_NCBIv1)
 #' x$position <- x$other$loc.metrics$ChromPos_Platypus_Chrom_NCBIv1
 #' ld_res <- gl.ld.haplotype(x,chrom_name = "NC_041728.1_chromosome_1",
@@ -87,10 +89,14 @@ gl.ld.haplotype <- function(x,
                             color_haplo = "viridis",
                             color_het = "deeppink",
                             plot.out = TRUE,
-                            save2tmp = FALSE,
+                            plot.file=NULL,
+                            plot.dir=NULL,
                             verbose = NULL) {
   # SET VERBOSITY
   verbose <- gl.check.verbosity(verbose)
+  
+  # SET WORKING DIRECTORY
+  plot.dir <- gl.check.wd(plot.dir,verbose=0)
   
   # FLAG SCRIPT START
   funname <- match.call()[[1]]
@@ -695,33 +701,15 @@ if (plot.out) {
 haplo_table <- haplo_table[-1,]
 print(haplo_table,row.names = FALSE)
 
-# SAVE INTERMEDIATES TO TEMPDIR creating temp file names
-if (save2tmp) {
-  if (plot.out) {
-    temp_plot <- tempfile(pattern = "Plot_")
-    match_call <-
-      paste0(names(match.call()),
-             "_",
-             as.character(match.call()),
-             collapse = "_")
-    # saving to tempdir
-    saveRDS(list(match_call, p), file = temp_plot)
-    if (verbose >= 2) {
-      cat(report("  Saving the ggplot to session tempfile\n"))
-    }
-  }
-  temp_table <- tempfile(pattern = "Table_")
-  saveRDS(list(match_call, haplo_table), file = temp_table)
-  if (verbose >= 2) {
-    cat(report("  Saving tabulation to session tempfile\n"))
-    cat(
-      report(
-        "  NOTE: Retrieve output files from tempdir using
-                    gl.list.reports() and gl.print.reports()\n"
-      )
-    )
-  }
+# Optionally save the plot ---------------------
+
+if(!is.null(plot.file)){
+  tmp <- utils.plot.save(p,
+                         dir=plot.dir,
+                         file=plot.file,
+                         verbose=verbose)
 }
+
 
 # FLAG SCRIPT END
 

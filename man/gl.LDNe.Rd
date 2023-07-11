@@ -16,7 +16,8 @@ gl.LDNe(
   plot.out = TRUE,
   plot_theme = theme_dartR(),
   plot_colors_pop = gl.select.colors(x, verbose = 0),
-  save2tmp = FALSE,
+  plot.file = NULL,
+  plot.dir = NULL,
   verbose = NULL
 )
 }
@@ -54,8 +55,10 @@ c(0,0.05) [default 0].}
 \item{plot_colors_pop}{population colors with as many colors as there are populations in the dataset
 [default discrete_palette].}
 
-\item{save2tmp}{If TRUE, saves any ggplots and listings to the session
+\item{plot.file}{Name for the RDS binary file to save (base name only, exclude extension) [default NULL]
 temporary directory (tempdir) [default FALSE].}
+
+\item{plot.dir}{Directory in which to save files [default = working directory]}
 
 \item{verbose}{Verbosity: 0, silent or fatal errors; 1, begin and end; 2,
 progress log; 3, progress and results summary; 5, full report
