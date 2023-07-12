@@ -83,11 +83,8 @@ The function outputs a barplot which is the typical output of
  This function averages the replicates within each mode identified by the 
  Clumpak method.
   
- Plots and table are saved to the temporal directory (tempdir) and can be
- accessed with the function \code{\link{gl.print.reports}} and listed with
- the function \code{\link{gl.list.reports}}. Note that they can be accessed
- only in the current R session because tempdir is cleared each time that the
-  R session is closed.
+ Plots and table are saved to the working directory specified in plot.dir (tempdir ) 
+ if plot.file is set.
 
 Examples of other themes that can be used can be consulted in \itemize{
  \item \url{https://ggplot2.tidyverse.org/reference/ggtheme.html} and \item

@@ -119,12 +119,9 @@ Basic Local Alignment Search Tool (BLAST; Altschul et al., 1990 &
  \item PercentageOverlap - length / min(qlen,slen) }
 
  Databases containing unfiltered aligned sequences, filtered aligned
- sequences and one hit per sequence are saved to the temporal directory
- (tempdir) and can be accessed with the function
- \code{\link{gl.print.reports}} and listed with the function
- \code{\link{gl.list.reports}}. Note that they can be accessed only in the
- current R session because tempdir is cleared each time that the R session is
- closed.
+ sequences and one hit per sequence are saved to the working directory
+ (plot.dir tempdir if not set).
+
 
  \strong{BLAST filtering}
 
@@ -137,9 +134,7 @@ Basic Local Alignment Search Tool (BLAST; Altschul et al., 1990 &
 \dontrun{
 res <- gl.blast(x= testset.gl,ref_genome = 'sequence.fasta')
 # display of reports saved in the temporal directory
-gl.list.reports()
 # open the reports saved in the temporal directory
-blast_databases <- gl.print.reports(1)
 }
 
 }
